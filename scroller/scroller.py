@@ -2,7 +2,7 @@ import pathlib
 import tempfile
 import tarfile
 import xml.sax
-from xml_readers import MetaHandler, ContentHandler
+from scroller.xml import MetaHandler, ContentHandler
 
 
 class Scroll:

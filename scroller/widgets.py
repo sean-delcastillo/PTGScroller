@@ -1,6 +1,7 @@
 from typing import Any
 import pytermgui as ptg
-from scroller import Library
+from scroller.scroller import Library
+import pathlib
 
 
 class ScrollLibrary(ptg.Container):
@@ -10,11 +11,12 @@ class ScrollLibrary(ptg.Container):
         super().__init__(**attrs)
         attrs.update({"box": "EMPTY"})
         self.library = library
+        self.library_name = self.library.path.name
         self.window_manager = window_manager
 
         self.update_content()
 
-    def button_handler(self, scroll_title: str):
+    def _button_handler(self, scroll_title: str):
         title = scroll_title
 
         def draw_scroll_window(*_):
@@ -26,15 +28,15 @@ class ScrollLibrary(ptg.Container):
 
         return draw_scroll_window
 
-    def generate_library_buttons(self) -> list[ptg.Button]:
+    def _generate_library_buttons(self) -> list[ptg.Button]:
         library_buttons = []
         for title, scroll in self.library.scrolls.items():
-            library_buttons.append([title, self.button_handler(title)])
+            library_buttons.append([title, self._button_handler(title)])
 
         return library_buttons
 
     def update_content(self) -> None:
-        buttons = ptg.Container(*self.generate_library_buttons(), box="EMPTY")
+        buttons = ptg.Container(*self._generate_library_buttons(), box="EMPTY")
 
         self.set_widgets([buttons])
 
@@ -52,20 +54,20 @@ class ScrollReader(ptg.Container):
         self._scroll.open()
         self._current_page = 1
         self._scroll_length = len(self._scroll.content.keys())
-        self.update_content()
+        self._update_content()
 
-    def get_section_content(self) -> list[str]:
+    def _get_section_content(self) -> list[str]:
         return self._scroll.content.get(self._current_page)
 
-    def turn_page(self, page: int) -> None:
+    def _turn_page(self, page: int) -> None:
         if page <= self._scroll_length and page > 0:
             self._current_page = page
 
-        self.update_content()
+        self._update_content()
 
-    def update_content(self) -> None:
+    def _update_content(self) -> None:
         content_viewer = ptg.Container(
-            *self.get_section_content(),
+            *self._get_section_content(),
             overflow=ptg.Overflow.SCROLL,
             parent_align=ptg.HorizontalAlignment.CENTER,
             height=20,
@@ -73,9 +75,9 @@ class ScrollReader(ptg.Container):
         )
 
         page_turner = ptg.Splitter(
-            ["<", lambda *_: self.turn_page(self._current_page - 1)],
+            ["<", lambda *_: self._turn_page(self._current_page - 1)],
             f"{self._current_page}/{self._scroll_length}",
-            [">", lambda *_: self.turn_page(self._current_page + 1)],
+            [">", lambda *_: self._turn_page(self._current_page + 1)],
         )
 
         self.set_widgets([content_viewer, page_turner])

@@ -1,9 +1,10 @@
 import pytermgui as ptg
-from widgets import ScrollLibrary
-from scroller import Library
+from scroller.widgets import ScrollLibrary
+from scroller.scroller import Library
 
 library = Library()
 
 with ptg.WindowManager() as manager:
-    window = ptg.Window(ScrollLibrary(library, manager))
+    library_widget = ScrollLibrary(library, manager)
+    window = ptg.Window(library_widget).set_title(library_widget.library_name)
     manager.add(window)

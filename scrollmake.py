@@ -1,0 +1,50 @@
+import pathlib
+import argparse
+import tarfile
+import shutil
+
+
+def init_argparse() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Make a scroll file.")
+    parser.add_argument("name", type=str, help="Name of scroll file.")
+    parser.add_argument(
+        "target_dir", type=str, help="Directory to turn into a scroll file."
+    )
+
+    return parser.parse_args()
+
+
+def first_match(dir: pathlib.Path, pattern: str) -> pathlib.Path:
+    return list(dir.glob(pattern))[0]
+
+
+def main():
+    args = init_argparse()
+
+    current_dir = pathlib.Path(".")
+    library_dir = first_match(current_dir, "scroll_library")
+    target_dir = pathlib.Path(current_dir, args.target_dir)
+    scroll_name = f"{args.name}.scrl"
+
+    content = first_match(target_dir, "*content*.xml")
+    media = target_dir.glob("*.jpg")
+
+    # TODO: Figure out how now to grab the entire path when adding a file to the archive.
+
+    content = shutil.copyfile(content, pathlib.Path("./content.xml"))
+
+    with tarfile.open(scroll_name, "x") as tar:
+        tar.add(content)
+        content.unlink()
+
+        for file in media:
+            file = shutil.copy(file, current_dir)
+            file = pathlib.Path(file)
+            tar.add(file)
+            file.unlink()
+
+    shutil.move(scroll_name, library_dir)
+
+
+if __name__ == "__main__":
+    main()
