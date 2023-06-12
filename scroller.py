@@ -6,6 +6,18 @@ from xml_readers import MetaHandler, ContentHandler
 
 
 class Scroll:
+    """
+    Represents a scroll (*.scrl) file.
+
+    The Scroll class provides functionality to read and navigate through the contents of a scroll file.
+
+    Attributes:
+        path (pathlib.Path): The path to the scroll file
+        title (str): The title of the scroll
+        meta (dict): A dictionary of meta attributes of a scroll ("Author", "Publish Date", etc)
+        content (dict): The textual contents of the scroll file keyed by section number
+    """
+
     def __init__(self, path: pathlib.Path) -> None:
         self.path = path
         self.title = ""
@@ -13,6 +25,9 @@ class Scroll:
         self.content = {}
 
     def open(self):
+        """
+        Extracts the scroll file archive, parses the content.xml file, and inserts text content into content attribute.
+        """
         with tempfile.TemporaryDirectory() as tmpdir:
             with tarfile.open(self.path) as tar:
                 tar.extractall(tmpdir)
