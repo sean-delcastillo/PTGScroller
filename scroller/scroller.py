@@ -44,6 +44,16 @@ class Scroll:
 
 
 class Library:
+    """
+    Represents a directory that contains a collection of scroll files.
+
+    When instantiated scans the directory indicated in the path attribute for scroll files and populates scroll's metadata attributes.
+
+    Attributes:
+        scrolls (dict): Scroll title key and scroll object value
+        path (pathlib.Path): Path to library directory
+    """
+
     def __init__(self, path: pathlib.Path = "./scroll_library") -> None:
         self.scrolls = {}
         self.path = pathlib.Path(path)
@@ -51,9 +61,20 @@ class Library:
         self.scan()
 
     def find(self, title: str) -> Scroll:
+        """
+        Get a scroll object from a library.
+
+        Args:
+            title (str): A scroll's title
+        Returns:
+            (scroll): The corresponding scroll object
+        """
         return self.scrolls.get(title)
 
     def scan(self) -> None:
+        """
+        Look through library directory and populate for found scroll files. Fill in scroll file's metadata.
+        """
         for scroll_tar in self.path.glob("*.scrl"):
             with tempfile.TemporaryDirectory() as tmpdir:
                 with tarfile.open(scroll_tar) as tar:

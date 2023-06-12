@@ -1,3 +1,18 @@
+"""
+Command line script to make a scroll file (*.scrl) from a well-formed directory.
+
+Usage: scrollmake.py [-h] scroll_file_name target_dir
+    scroll_file_name    Name of the scroll file.
+    target_dir          Path of the well-formed directory.
+
+    options:
+    -h, --help          Show this help message and exit.
+
+A well-formed directory should have a doctype scroll xml file following the pattern "*content*.xml"
+along with any embedded media referenced in the contents file. The final *.scrl file will be placed
+in the indicated library directory.
+"""
+
 import pathlib
 import argparse
 import tarfile
@@ -6,7 +21,7 @@ import shutil
 
 def init_argparse() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Make a scroll file.")
-    parser.add_argument("name", type=str, help="Name of scroll file.")
+    parser.add_argument("scroll_file_name", type=str, help="Name of scroll file.")
     parser.add_argument(
         "target_dir", type=str, help="Directory to turn into a scroll file."
     )

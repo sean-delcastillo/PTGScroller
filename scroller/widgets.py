@@ -1,7 +1,6 @@
 from typing import Any
 import pytermgui as ptg
 from scroller.scroller import Library
-import pathlib
 
 
 class ScrollLibrary(ptg.Container):
@@ -22,7 +21,9 @@ class ScrollLibrary(ptg.Container):
         def draw_scroll_window(*_):
             reader = ScrollReader(self.library, title)
 
-            window = ptg.Window(reader, width=100).center()
+            window = (
+                ptg.Window(reader, width=100).center().set_title(reader.scroll_title)
+            )
 
             self.window_manager.add(window)
 
@@ -50,18 +51,22 @@ class ScrollReader(ptg.Container):
     ) -> None:
         super().__init__(**attrs)
         attrs.update({"box": "EMPTY"})
+        self.scroll_title = scroll_title
         self._scroll = library.find(scroll_title)
+
         self._scroll.open()
-        self._current_page = 1
-        self._scroll_length = len(self._scroll.content.keys())
+
+        self.current_page = 1
+        self.scroll_length = len(self._scroll.content.keys())
+
         self._update_content()
 
     def _get_section_content(self) -> list[str]:
-        return self._scroll.content.get(self._current_page)
+        return self._scroll.content.get(self.current_page)
 
     def _turn_page(self, page: int) -> None:
-        if page <= self._scroll_length and page > 0:
-            self._current_page = page
+        if page <= self.scroll_length and page > 0:
+            self.current_page = page
 
         self._update_content()
 
@@ -75,9 +80,9 @@ class ScrollReader(ptg.Container):
         )
 
         page_turner = ptg.Splitter(
-            ["<", lambda *_: self._turn_page(self._current_page - 1)],
-            f"{self._current_page}/{self._scroll_length}",
-            [">", lambda *_: self._turn_page(self._current_page + 1)],
+            ["<", lambda *_: self._turn_page(self.current_page - 1)],
+            f"{self.current_page}/{self.scroll_length}",
+            [">", lambda *_: self._turn_page(self.current_page + 1)],
         )
 
         self.set_widgets([content_viewer, page_turner])
