@@ -1,7 +1,7 @@
-# PTG-Scroller
+# PTGScroller
 ## Terminal User Interface eReader
 
-PTG-Scroller reads scroll files with the ".scrl" extension and displays the contents in a PyTermGUI session.
+PTGScroller reads scroll files with the ".scrl" extension and displays the contents in the terminal using PyTermGUI
 
 ## Installation
 
