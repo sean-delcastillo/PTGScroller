@@ -1,3 +1,7 @@
+"""
+Sax content handlers used to parse scroll files (*.scrl).
+"""
+
 import xml
 
 

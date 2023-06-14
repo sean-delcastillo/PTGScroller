@@ -1,3 +1,7 @@
+"""
+Classes used by the Scroller package.
+"""
+
 import pathlib
 import tempfile
 import tarfile
@@ -67,7 +71,7 @@ class Library:
         Args:
             title (str): A scroll's title
         Returns:
-            (scroll): The corresponding scroll object
+            The corresponding scroll object matching the given title
         """
         return self.scrolls.get(title)
 
