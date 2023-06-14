@@ -44,7 +44,7 @@ def main():
     content = first_match(target_dir, "*content*.xml")
     media = target_dir.glob("*.jpg")
 
-    # TODO: Figure out how now to grab the entire path when adding a file to the archive.
+    # TODO: Figure out how not to grab the entire path when adding a file to the archive.
 
     content = shutil.copyfile(content, pathlib.Path("./content.xml"))
 
