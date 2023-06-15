@@ -4,6 +4,7 @@ Importable Scroller widgets.
 
 from typing import Any
 import pytermgui as ptg
+import pathlib
 from scroller.scroller import Library
 
 
@@ -18,11 +19,14 @@ class ScrollLibrary(ptg.Container):
     """
 
     def __init__(
-        self, library: Library, window_manager: ptg.WindowManager, **attrs: Any
+        self,
+        window_manager: ptg.WindowManager,
+        library_dir: pathlib.Path = "./scroll_library",
+        **attrs: Any,
     ) -> None:
         super().__init__(**attrs)
         attrs.update({"box": "EMPTY"})
-        self.library = library
+        self.library = Library(library_dir)
         self.library_name = self.library.path.name
         self.window_manager = window_manager
 
@@ -42,9 +46,12 @@ class ScrollLibrary(ptg.Container):
 
         def draw_scroll_window(*_):
             reader = ScrollReader(self.library, title)
+            exit = ptg.Button("X", lambda *_: window.close())
 
             window = (
-                ptg.Window(reader, width=100).center().set_title(reader.scroll_title)
+                ptg.Window(exit, reader, width=100)
+                .center()
+                .set_title(reader.scroll_title)
             )
 
             self.window_manager.add(window)
