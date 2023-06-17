@@ -29,12 +29,6 @@ class ContentHandler(xml.sax.ContentHandler):
     def startElement(self, tag, attributes):
         self._current_data = tag
         match self._current_data:
-            case "META":
-                self.scroll_attributes.update({"title": attributes.get("title")})
-                self.scroll_attributes.update({"author": attributes.get("author")})
-                self.scroll_attributes.update(
-                    {"publish_date": attributes.get("publish_date")}
-                )
             case "section":
                 self.section_count += 1
 
