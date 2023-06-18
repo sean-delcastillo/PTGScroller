@@ -6,7 +6,7 @@ import pathlib
 import tempfile
 import tarfile
 import xml.sax
-from scroller.xml import MetaHandler, ContentHandler
+from scroller.xml_handler import MetaHandler, ContentHandler
 
 
 class Scroll:
