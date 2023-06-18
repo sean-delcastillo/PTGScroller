@@ -39,7 +39,7 @@ def main():
     current_dir = pathlib.Path(".")
     library_dir = first_match(current_dir, "scroll_library")
     target_dir = pathlib.Path(current_dir, args.target_dir)
-    scroll_name = f"{args.name}.scrl"
+    scroll_name = f"{args.scroll_file_name}.scrl"
 
     content = first_match(target_dir, "*content*.xml")
     media = target_dir.glob("*.jpg")
