@@ -2,7 +2,7 @@
 Sax content handlers used to parse scroll files (*.scrl).
 """
 
-import xml
+import xml.sax
 
 
 class MetaHandler(xml.sax.ContentHandler):
