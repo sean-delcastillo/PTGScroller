@@ -27,6 +27,11 @@ class ScrollLibrary(ptg.Container):
     ) -> None:
         super().__init__(**attrs)
         attrs.update({"box": "EMPTY"})
+
+        self.reader_embed_size = attrs.get("embed_size")
+        if self.reader_embed_size is None:
+            self.reader_embed_size = 32
+
         self.library = Library(library_dir)
         self.library_name = self.library.path.name
         self.window_manager = window_manager
@@ -45,12 +50,18 @@ class ScrollLibrary(ptg.Container):
         """
         title = scroll_title
 
+        def set_default_width() -> int:
+            if self.reader_embed_size < 100:
+                return 100
+            else:
+                return self.reader_embed_size + 50
+
         def draw_scroll_window(*_):
-            reader = ScrollReader(self.library, title)
+            reader = ScrollReader(self.library, title, self.reader_embed_size)
             exit = ptg.Button("X", lambda *_: window.close())
 
             window = (
-                ptg.Window(exit, reader, width=100)
+                ptg.Window(exit, reader, width=set_default_width())
                 .center()
                 .set_title(reader.scroll_title)
             )
@@ -68,7 +79,8 @@ class ScrollLibrary(ptg.Container):
         """
         library_buttons = []
         for title, scroll in self.library.scrolls.items():
-            library_buttons.append([title, self._button_handler(title)])
+            button = ptg.Button(title, self._button_handler(title))
+            library_buttons.append(button)
 
         return library_buttons
 
@@ -95,6 +107,7 @@ class ScrollReader(ptg.Container):
         self,
         library: Library,
         scroll_title: str,
+        embed_size: int = 32,
         **attrs: Any,
     ) -> None:
         """
@@ -105,6 +118,7 @@ class ScrollReader(ptg.Container):
         self.scroll_title = scroll_title
         self._scroll = library.find(scroll_title)
 
+        self._scroll.embed_size = embed_size
         self._scroll.open()
 
         self.current_page = 1

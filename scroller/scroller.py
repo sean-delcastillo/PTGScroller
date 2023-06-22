@@ -29,6 +29,7 @@ class Scroll:
         self.meta = {}
         self.content = {}
         self.images = {}
+        self.embed_size = 32
 
     def open(self):
         """
@@ -52,7 +53,7 @@ class Scroll:
                 image_path = list(tmpdir.glob(image_name))[0]
 
                 image = Image.open(image_path)
-                image = image.resize((32, 32))
+                image = image.resize((self.embed_size, self.embed_size))
                 self.images.update({image_name: image})
 
 
