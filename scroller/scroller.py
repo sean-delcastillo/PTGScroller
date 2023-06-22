@@ -6,6 +6,7 @@ import pathlib
 import tempfile
 import tarfile
 import xml.sax
+from PIL import Image
 from scroller.xml_handler import MetaHandler, ContentHandler
 
 
@@ -27,6 +28,7 @@ class Scroll:
         self.title = ""
         self.meta = {}
         self.content = {}
+        self.images = {}
 
     def open(self):
         """
@@ -45,6 +47,13 @@ class Scroll:
             parser.parse(content_file)
 
             self.content = handler.scroll_attributes.get("sections")
+
+            for image_name in handler.images:
+                image_path = list(tmpdir.glob(image_name))[0]
+
+                image = Image.open(image_path)
+                image = image.resize((32, 32))
+                self.images.update({image_name: image})
 
 
 class Library:

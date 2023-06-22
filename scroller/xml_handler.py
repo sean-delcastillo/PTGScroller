@@ -23,6 +23,7 @@ class ContentHandler(xml.sax.ContentHandler):
         self._current_data = ""
         self.sections = {}
         self._section_content = []
+        self.images = []
         self._paragraph_content = ""
         self.section_count = 0
 
@@ -31,6 +32,9 @@ class ContentHandler(xml.sax.ContentHandler):
         match self._current_data:
             case "section":
                 self.section_count += 1
+            case "img":
+                self._section_content.append(f"IMGFILE:{attributes.get('src')}")
+                self.images.append(f"{attributes.get('src')}")
 
     def endElement(self, tag):
         match tag:

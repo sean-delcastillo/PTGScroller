@@ -6,6 +6,7 @@ from typing import Any
 import pytermgui as ptg
 import pathlib
 from scroller.scroller import Library
+from PIL import Image
 
 
 class ScrollLibrary(ptg.Container):
@@ -109,12 +110,50 @@ class ScrollReader(ptg.Container):
         self.current_page = 1
         self.scroll_length = len(self._scroll.content.keys())
 
+        self._inject_images()
+
         self._update_content()
+
+    def _build_imbed_image(self, image: Image):
+        pixel_matrix = ptg.DensePixelMatrix(32, 32, default="black")
+
+        for horizontal in range(pixel_matrix.rows):
+            for pixel in range(pixel_matrix.columns):
+                pixel_value = image.getpixel((pixel, horizontal))
+
+                if len(pixel_value) < 4:
+                    r, g, b = pixel_value
+                    pixel_matrix[horizontal, pixel] = f"{r};{g};{b}"
+                else:
+                    r, g, b, a = pixel_value
+
+                    if a < 255:
+                        pass
+                    else:
+                        pixel_matrix[horizontal, pixel] = f"{r};{g};{b}"
+
+        pixel_matrix.build()
+
+        return pixel_matrix
+
+    def _inject_images(self):
+        for page, scroll_content in self._scroll.content.items():
+            for content in scroll_content:
+                index = scroll_content.index(content)
+                content_split = content.split(":")
+                if content_split[0] == "IMGFILE":
+                    image = self._scroll.images.get(content_split[1])
+                    image_widget = self._build_imbed_image(image)
+                    content = image_widget
+
+                scroll_content[index] = content
+            self._scroll.content.update({page: scroll_content})
 
     def _get_section_content(self) -> list[str]:
         """
         Returns current page's corresponding content list from scroll's content dictionary.
         """
+
         return self._scroll.content.get(self.current_page)
 
     def _turn_page(self, page: int) -> None:

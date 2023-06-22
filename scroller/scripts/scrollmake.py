@@ -42,7 +42,8 @@ def main():
     scroll_name = f"{args.scroll_file_name}.scrl"
 
     content = first_match(target_dir, "*content*.xml")
-    media = target_dir.glob("*.jpg")
+    media = list(target_dir.glob("*.jpg"))
+    media.extend(list(target_dir.glob("*.png")))
 
     # TODO: Figure out how not to grab the entire path when adding a file to the archive.
 
