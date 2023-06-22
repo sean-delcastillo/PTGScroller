@@ -115,7 +115,7 @@ class ScrollReader(ptg.Container):
         self._update_content()
 
     def _build_imbed_image(self, image: Image):
-        pixel_matrix = ptg.DensePixelMatrix(32, 32, default="black")
+        pixel_matrix = ptg.DensePixelMatrix(image.width, image.height, default="black")
 
         for horizontal in range(pixel_matrix.rows):
             for pixel in range(pixel_matrix.columns):
