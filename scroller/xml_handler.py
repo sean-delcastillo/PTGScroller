@@ -2,7 +2,7 @@
 Sax content handlers used to parse scroll files (*.scrl).
 """
 
-import xml
+import xml.sax
 
 
 class MetaHandler(xml.sax.ContentHandler):
@@ -23,20 +23,18 @@ class ContentHandler(xml.sax.ContentHandler):
         self._current_data = ""
         self.sections = {}
         self._section_content = []
+        self.images = []
         self._paragraph_content = ""
         self.section_count = 0
 
     def startElement(self, tag, attributes):
         self._current_data = tag
         match self._current_data:
-            case "META":
-                self.scroll_attributes.update({"title": attributes.get("title")})
-                self.scroll_attributes.update({"author": attributes.get("author")})
-                self.scroll_attributes.update(
-                    {"publish_date": attributes.get("publish_date")}
-                )
             case "section":
                 self.section_count += 1
+            case "img":
+                self._section_content.append(f"IMGFILE:{attributes.get('src')}")
+                self.images.append(f"{attributes.get('src')}")
 
     def endElement(self, tag):
         match tag:
