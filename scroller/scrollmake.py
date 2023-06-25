@@ -20,7 +20,7 @@ import shutil
 
 
 def init_argparse() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Make a scroll file.")
+    parser = argparse.ArgumentParser(prog=__name__, description="Make a scroll file.")
     parser.add_argument("scroll_file_name", type=str, help="Name of scroll file.")
     parser.add_argument(
         "target_dir", type=str, help="Directory to turn into a scroll file."
