@@ -9,7 +9,7 @@ Download and copy over the files in the repo's own `scroll-library` directory. T
 In the root project directory create a Python module named `scrolllibrary_example.py` with the following contents:
 
 ```python
-from scroller.widgets import ScrollLibrary
+from ptgscroller.widgets import ScrollLibrary
 import pytermgui as ptg
 
 with ptg.WindowManager() as manager:
@@ -33,7 +33,7 @@ ScrollTutorial
 Running `scrolllibrary_example.py` should result in the following terminal output:
 
 ```termage-svg title=scrolllibrary_example.py
-from scroller.widgets import ScrollLibrary
+from ptgscroller.widgets import ScrollLibrary
 import pytermgui as ptg
 
 with ptg.WindowManager() as manager:
