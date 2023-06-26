@@ -1,4 +1,4 @@
-### Using ScrollLibrary to Display Scroll Files for Selection
+## Using ScrollLibrary to Display Scroll Files for Selection
 
 In this tutorial we will begin working with PTGScroller by initializing the ScrollLibrary class and rendering the widget using PyTermGUI.
 
