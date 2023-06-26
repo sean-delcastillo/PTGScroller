@@ -10,6 +10,13 @@ python = "^3.10"
 pytermgui = "^7.4.0"
 pillow = "^9.5.0"
 
+[tool.poetry.dev-dependencies]
+Termage = "^0.6.0"
+mkdocs = "^1.4.3"
+mkdocstrings = "^0.22.0"
+mkdocstrings-python = "^1.1.2"
+mkdocs-material = "^9.1.17"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"

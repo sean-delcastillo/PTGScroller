@@ -1,5 +1,8 @@
 """
 Sax content handlers used to parse scroll files (*.scrl).
+
+MetaHandler is used by the Library to fill in the scroll's meta data attributes,
+while the ContentHandler is used by the Scroll to fill in its contents.
 """
 
 import xml.sax

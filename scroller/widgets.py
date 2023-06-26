@@ -128,7 +128,16 @@ class ScrollReader(ptg.Container):
 
         self._update_content()
 
-    def _build_imbed_image(self, image: Image):
+    def _build_embed_image(self, image: Image):
+        """
+        Build a DensePixelMatrix from an Image object by setting matrix values according to the corresponding pixel value.
+
+        Args:
+            image (PIL.Image): An the Image object to turn into a DensePixelMatrix
+
+        Returns:
+            A built DensePixelMatrix
+        """
         pixel_matrix = ptg.DensePixelMatrix(image.width, image.height, default="black")
 
         for horizontal in range(pixel_matrix.rows):
@@ -151,13 +160,16 @@ class ScrollReader(ptg.Container):
         return pixel_matrix
 
     def _inject_images(self):
+        """
+        Iterates through a scroll's content to find embedded image. Replaces it with the proper pixel matrix widget.
+        """
         for page, scroll_content in self._scroll.content.items():
             for content in scroll_content:
                 index = scroll_content.index(content)
                 content_split = content.split(":")
                 if content_split[0] == "IMGFILE":
                     image = self._scroll.images.get(content_split[1])
-                    image_widget = self._build_imbed_image(image)
+                    image_widget = self._build_embed_image(image)
                     content = image_widget
 
                 scroll_content[index] = content

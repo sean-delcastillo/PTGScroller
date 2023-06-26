@@ -1,0 +1,45 @@
+site_name: PTGScroller::Docs
+
+theme:
+  name: "material"
+
+  font:
+    text: Open Sans
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - termage:
+      # Default config options
+      write_files: False
+      inline_styles: True
+      name_template: "termage_{count}.svg"
+      path: "assets"
+      background: "#212121"
+      foreground: "#dddddd"
+      tabs: ["Python", "Output"]
+      chrome: True
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [termage]
+          options:
+            docstring_style: google
+            docstring_options:
+              ignore_init_summary: yes
+              merge_init_into_class: yes
+              show_submodules: no
+
+repo_url: https://github.com/sean-delcastillo/PTGScroller
+repo_name: sean-delcastillo/ptgscroller
+
+nav:
+  - index.md
+  - tutorials.md
+  - how-to.md
+  - reference.md
+  - explanation.md
