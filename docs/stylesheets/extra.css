@@ -1,0 +1,14 @@
+@import url('iosevka-fixed.css');
+
+:root {
+    --md-text-font: 'Iosevka Fixed Web';
+    --md-code-font: 'Iosevka Fixed Web';
+}
+
+html {
+    font-size: 25px;
+}
+
+.md-typeset code {
+    font-size: 0.9em;
+}

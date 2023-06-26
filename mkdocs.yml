@@ -1,10 +1,25 @@
-site_name: PTGScroller::Docs
+site_name: PTGScroller//Docs
 
 theme:
   name: "material"
+  palette:
+    - scheme: default
+      primary: white
+      accent: deep orange
+      toggle:
+        icon: material/brightness-5
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      accent: deep orange
+      toggle:
+        icon: material/brightness-2
+        name: Switch to light mode
+  font: false
 
-  font:
-    text: Open Sans
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/iosevka-aile.css
 
 markdown_extensions:
   - attr_list
