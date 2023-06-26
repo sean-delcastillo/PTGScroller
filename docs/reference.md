@@ -1,7 +1,7 @@
-::: scroller.scroller
+::: ptgscroller.scroller
 
-::: scroller.widgets
+::: ptgscroller.widgets
 
-::: scroller.xml_handler
+::: ptgscroller.xml_handler
 
-::: scroller.scrollmake
+::: ptgscroller.scrollmake
