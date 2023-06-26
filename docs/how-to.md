@@ -4,7 +4,7 @@ The size of images embedded into the textual content of a scroll can be controll
 However, for most usecases the ScrollReader widget is opened via an already instanced ScrollLibrary. You can pass the keyword argument `embed_size` to a ScrollLibrary's constructor; this will affect all ScrollReader objects opened by this ScrollLibrary instance. 
 
 ```python
-from scroller.widgets import ScrollLibrary
+from ptgscroller.widgets import ScrollLibrary
 import pytermgui as ptg
 
 with ptg.WindowManager() as manager:
