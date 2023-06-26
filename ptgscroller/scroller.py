@@ -7,7 +7,7 @@ import tempfile
 import tarfile
 import xml.sax
 from PIL import Image
-from scroller.xml_handler import MetaHandler, ContentHandler
+from ptgscroller.xml_handler import MetaHandler, ContentHandler
 
 
 class Scroll:

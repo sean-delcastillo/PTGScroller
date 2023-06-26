@@ -5,7 +5,7 @@ Importable Scroller widgets.
 from typing import Any
 import pytermgui as ptg
 import pathlib
-from scroller.scroller import Library
+from ptgscroller.scroller import Library
 from PIL import Image
 
 
