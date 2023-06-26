@@ -1,7 +1,7 @@
 [tool.poetry]
-name = "scroller"
+name = "PTGScroller"
 version = "0.1.0"
-description = "PTG-Scroller reads scroll files with the .scrl extension and displays the contents in a PyTermGUI session"
+description = "PTG Scroller reads scroll files with the .scrl extension and displays the contents in a PyTermGUI session"
 authors = ["Sean Del Castillo <seanbdcastillo@gmail.com>"]
 readme = "README.md"
 
